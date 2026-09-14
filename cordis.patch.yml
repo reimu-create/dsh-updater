@@ -1,0 +1,6 @@
+- insert:
+    - id: dsh-updater
+      name: dsh-updater
+      config:
+        enabled: true
+        port: 3080
