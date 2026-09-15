@@ -13,6 +13,14 @@ DSH 插件：设置面板里的「更新」页。
 
 更新进程通过 WMI 创建（父进程为 `WmiPrvSE`），`controller.ps1` 用 `taskkill /T` 清理 DSH 进程树时杀不到它——**会话中断不影响更新**。
 
+## 兼容性与升级路径（重要）
+
+插件要求 **dsh 0.1.5+**（token 认证 + 前端依赖预打包结构）。dsh 在 0.1.5 有过一次**破坏性更新**，旧版 dsh（如 0.1.1-rc.2 及更早）与插件**不兼容**，请勿直接安装：
+
+1. **先用脚本升级 dsh**：从 [Release](https://github.com/reimu-create/dsh-updater/releases) 下载 `dsh-updater-tools-v1.0.0.zip`，解压到便携版安装目录的 `_update\` 下，双击 `Update-DSH.bat`（或 PowerShell 运行 `update-dsh.ps1`）把 dsh 升到最新版；
+2. **再安装插件**：`dsh plugin --profile web add <本目录>`；
+3. 之后日常更新直接在 设置 → 更新 里一键完成即可。
+
 ## 安装
 
 ```sh
@@ -21,7 +29,7 @@ dsh plugin --profile web add D:\dsh-plugins\dsh-updater
 
 ## 依赖
 
-- 便携版 DeepSeekHarness 安装目录下需存在 `_update\update-dsh.ps1` 与 `_update\Fix-Launcher.ps1`（本仓库 `tools/` 提供了这两份工具，部署到安装目录的 `_update\` 即可）。
+- 便携版 DeepSeekHarness 安装目录下需存在 `_update\update-dsh.ps1` 与 `_update\Fix-Launcher.ps1`（本仓库 `tools/` 提供了这两份工具，也可直接下载 Release 资产 `dsh-updater-tools-v1.0.0.zip` 解压，部署到安装目录的 `_update\` 即可）。
 - 本机需有 `npm`（版本检查走 `npm view @deepseek-ai/dsh version`）。
 - Windows 需有 `powershell.exe`（WMI 创建脱离进程）。
 
